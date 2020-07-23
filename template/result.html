@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>2nd Page</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function(){
+
+		// Convert text to object
+		var resultObj = JSON.parse( localStorage.getItem("result") );
+
+		console.log( resultObj );
+
+		// iterate the object and show it on your page
+		let result = resultObj;
+		for( let data of result ){
+
+        	$('body').append('<p><strong>Mobile:</strong> '+data.mobile+' <br><strong>Distance:</strong> '+data.distance+'</p>');
+        	console.log( data );
+        
+        }
+
+    });
+
+	</script>
+
+</head>
+<body>
+
+	<p></p>
+
+</body>
+</html>

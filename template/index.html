@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    form {
+      border: 3px solid #f1f1f1;
+    }
+
+    input[type=text],
+    input[type=password] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    button:hover {
+      opacity: 0.8;
+    }
+
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #f44336;
+    }
+
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
+
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
+
+    .container {
+      padding: 16px;
+    }
+
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
+
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+
+      .cancelbtn {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1 style="text-align: center;">Carpool Location Tracker</h1>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    var x = document.getElementById("demo");
+
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+      } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+      }
+    }
+
+    function showPosition(position) {
+    	//x.innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+
+      	localStorage.setItem("test", "value of test");
+
+      	var lat = position.coords.latitude;
+      	var long = position.coords.longitude;
+      	var name = $("#name").val();
+      	var mobile = $("#mobile").val();
+      	var token = $("#token").val();
+
+      	var data = { name: name, mobile: mobile, lat: lat, long: long, token: token };
+
+    	var settings = {
+        	"async": true,
+        	"crossDomain": true,
+        	"url": "https://a533f05241cf.ngrok.io/insert",
+        	"method": "POST",
+        	"headers": {
+          	"content-type": "application/json",
+          	"cache-control": "no-cache",
+        },
+        "processData": false,
+        "data": JSON.stringify(data)
+    }
+
+    	$.ajax(settings).done(function (response) {
+        	console.log(response);
+
+        	// Put the object into storage
+			localStorage.setItem('result', JSON.stringify(response));
+
+			// Redirect to 2nd page
+        	window.location.replace("result.html");
+      	});
+    }
+  </script>
+
+<label for="uname"><b>Name</b></label>
+<input type="text" placeholder="Enter Name" name="name" id="name" required>
+
+<label for="psw"><b>Mobile</b></label>
+<input type="text" placeholder="Enter Mobile Number" name="mobile" id="mobile" required>
+
+<label for="psw"><b>Passcode</b></label>
+<input type="text" placeholder="Enter Passcode" name="token" id="token" required>
+
+<button onclick="getLocation(); "location.href='http://www.google.com'>Save your Location</button>
+
+<!-- <p id="demo"></p> -->
+
+</body>
+
+</html>
