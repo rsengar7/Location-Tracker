@@ -44,7 +44,7 @@ def index1():
     print(request.json)
     return jsonify({"success":"true"})
 
-@app.route('/hello')
+@app.route('/carpool')
 def hello_name():
    return render_template('index.html')
 
