@@ -8,7 +8,7 @@ try:
     import flask
     import pandas as pd
     from flask_cors import CORS
-    from flask import request, jsonify
+    from flask import request, jsonify, render_template
     from math import radians, sin, cos, acos
     
     # print("All the Modules are Successfully Imported")
@@ -35,7 +35,7 @@ class DBConfigure():
         return conn
 
 
-app = flask.Flask(__name__)
+app = flask.Flask(__name__, template_folder='templates')
 app.config["DEBUG"] = True
 CORS(app)
 
@@ -43,6 +43,14 @@ CORS(app)
 def index1():
     print(request.json)
     return jsonify({"success":"true"})
+
+@app.route('/hello')
+def hello_name():
+   return render_template('index.html')
+
+@app.route('/result.html')
+def hello():
+   return render_template('result.html')
 
 
 @app.route('/insert', methods=['GET', 'POST'])
