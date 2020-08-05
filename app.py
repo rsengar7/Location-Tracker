@@ -28,7 +28,7 @@ class DBConfigure():
     def db_conn(self):
         ''' DataBase Connection '''
         try:
-            conn = self.mysqldb.connect(host="localhost",port=3306, database="location_tracker", user="root", password="bemylife0510", autocommit=True)    # Local
+            conn = self.mysqldb.connect(host="localhost",port=3306, database="location_tracker", user="root", password="Qwerty@1", autocommit=True)    # Local
         except Exception as err:
             conn = self.mysqldb.connect(host="localhost",port=3306, database="location_tracker", user="root", password="bemylife0510", autocommit=True)    # Local
             print(err)
@@ -102,38 +102,3 @@ def index():
     else:
         return jsonify({'success':'false', 'text':'Please enter the valid token'})
 
-app.run()
-
-
-# @app.route('/', methods=['GET', 'POST'])
-# def home():
-#     conn = DBConfigure().db_conn()
-#     cur = conn.cursor()
-
-#     latitude = request.json['lat']
-#     longitude = request.json['long']
-#     mobile = request.json['mobile']
-
-#     slat = radians(float(latitude))
-#     slon = radians(float(longitude))
-
-#     df = pd.read_sql_query("select * from user_lat_long where mobile != '{}'".format(mobile), conn)
-    
-#     distance = []
-#     for val in df.values.tolist():
-#         elat = radians(float(val[3]))
-#         elon = radians(float(val[4]))
-
-#         dist = 6371.01 * acos(sin(slat)*sin(elat) + cos(slat)*cos(elat)*cos(slon - elon))
-
-#         distance.append(dist)
-
-#     df['distance_in_km'] = distance
-
-#     df.sort_values(by=['distance_in_km'], inplace=True)
-
-#     print(df)
-
-#     data = [{'name':_data[0], 'mobile':_data[1], 'distance':_data[2]} for _data in df[['name', 'mobile', 'distance_in_km']].values.tolist()]
-
-#     return jsonify(data)
